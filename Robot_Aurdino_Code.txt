@@ -1,0 +1,69 @@
+/*------ Automatic Floor Cleaning Robot Aurdino Code----- */
+/*-------definning Inputs------*/
+#define LS 2      // left sensor
+#define RS 3      // right sensor
+
+/*-------definning Outputs------*/
+#define LM1 4       // left motor
+#define LM2 5       // left motor
+#define RM1 6       // right motor
+#define RM2 7       // right motor
+
+#include<Servo.h>
+Servo myservo;//
+int potpin=0;
+int val;
+int pos;
+void setup()
+{
+  pinMode(LS, INPUT);
+  pinMode(RS, INPUT);
+  pinMode(LM1, OUTPUT);
+  pinMode(LM2, OUTPUT);
+  pinMode(RM1, OUTPUT);
+  pinMode(RM2, OUTPUT);
+  myservo.attach(9);
+}
+void load()
+ {val=analogRead(potpin);
+val=map(val,0,1023,0,180);
+myservo.write(val);
+delay(15);
+int pos;}
+
+void loop()
+
+
+{  if(!(digitalRead(LS)) && !digitalRead(RS))     // Move Forward
+  {
+    digitalWrite(LM1, HIGH);
+    digitalWrite(LM2, LOW);
+    digitalWrite(RM1, HIGH);
+    digitalWrite(RM2, LOW);
+  }
+  
+  if(!(digitalRead(LS)) && digitalRead(RS))     // Turn right
+  {
+    digitalWrite(LM1, LOW);
+    digitalWrite(LM2, HIGH);
+    digitalWrite(RM1, HIGH);
+    digitalWrite(RM2, LOW);
+    for(pos=0;pos<=180;pos+=1)
+    {myservo.write(pos);
+    delay(15);}
+    
+  }
+  
+  if(digitalRead(LS) && !(digitalRead(RS)))     // turn left
+  {
+    digitalWrite(LM1, HIGH);
+    digitalWrite(LM2, LOW);
+    digitalWrite(RM1, LOW);
+    digitalWrite(RM2, HIGH);
+    for(pos=180;pos>=0;pos-=1)
+    {myservo.write(pos);
+    delay(15);}
+  }
+  
+ 
+}
